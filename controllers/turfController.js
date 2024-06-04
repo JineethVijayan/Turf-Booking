@@ -46,7 +46,7 @@ export const createTurf = async (req, res) => {
                 title,
                 description,
                 price,
-                manager: findInstructor._id,
+                manager: findManager._id,
                 image: imageUrl,
             });
 

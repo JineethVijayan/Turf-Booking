@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/user",userRouter);
 app.use("/api/v1/managers",managerRouter);
-app.use("api/v1/turfs",turfRouter);
+app.use("/api/v1/turfs",turfRouter);
 
 const port = 3001;
 connectDB();
