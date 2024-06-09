@@ -6,10 +6,10 @@ import authenticateManager from "../middlewares/managerMiddleware.js";
 
 const turfRouter = express.Router();
 
-turfRouter.get("/get-turfs",getAllTurfs);
+turfRouter.get("/get-turfs",authenticateAdmin,getAllTurfs);
 turfRouter.post("/add-turfs",upload.single("image"),createTurf);
 turfRouter.put("/update-turfs/:id", updateTurf);
-turfRouter.delete("/delete-turfs/:id", deleteTurf);
+turfRouter.delete("/delete-turfs/:id",authenticateAdmin,deleteTurf);
 
 
 
