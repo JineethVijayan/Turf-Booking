@@ -59,10 +59,10 @@ export const signin = async (req, res) => {
         if (!matchpassword) {
             res.send("invalid password");
         }
-
+        const role = manager.role;
         const token = adminToken(manager);
         res.cookie("token", token);
-        res.json({ message: "loged in", token });
+        res.json({ message: "loged in",role, token });
 
     } catch (error) {
         console.log(error, "something went wrong");
@@ -70,24 +70,24 @@ export const signin = async (req, res) => {
     }
 }
 
-export const getAllManagers = async(req,res)=>{
+export const getAllManagers = async (req, res) => {
     const managers = await Manager.find();
-   return res.send(managers);
+    return res.send(managers);
 }
 
 
-export const removeManager = async(req,res)=>{
-    const id = req.params.id ;
+export const removeManager = async (req, res) => {
+    const id = req.params.id;
 
-    const manager = await Manager.findById({ _id:id});
+    const manager = await Manager.findById({ _id: id });
 
-    if(!manager){
-        return res.send("manager is not exist"); 
+    if (!manager) {
+        return res.send("manager is not exist");
     }
 
-    const remove = await Manager.deleteOne({ _id:id});
+    const remove = await Manager.deleteOne({ _id: id });
 
-    if(!remove){
+    if (!remove) {
         return res.send("failed to remove");
     }
 

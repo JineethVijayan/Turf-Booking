@@ -74,6 +74,8 @@ export const updateTurf = async (req, res) => {
 
     const { description, price, manager } = req.body;
 
+
+
     const updatedTurf = await Turf.findOneAndUpdate(
         { _id: id },
         { description, price, manager },
@@ -98,5 +100,5 @@ export const deleteTurf = async (req, res) => {
     if (!deleteId) {
       return res.send("not deleted");
     }
-    return res.send(" turf deleted");
+    return res.send("turf deleted");
   };

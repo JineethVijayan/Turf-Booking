@@ -25,8 +25,8 @@ managerRouter.get("/check-instructor", authenticateManager, async (req, res) => 
 
 managerRouter.post("/signup", signup);
 managerRouter.post("/signin", signin);
-managerRouter.get("/get-managers", getAllManagers);
-managerRouter.delete("/remove-managers/:id", removeManager)
+managerRouter.get("/get-managers",authenticateAdmin, getAllManagers);
+managerRouter.delete("/remove-managers/:id",authenticateAdmin, removeManager)
 
 
 export default managerRouter;
