@@ -5,6 +5,8 @@ import userRouter from "../Routes/userRoute.js";
 import managerRouter from "../Routes/managerRoutes.js";
 import cookieParser from "cookie-parser";
 import turfRouter from "../Routes/turfRoutes.js";
+import cartRouter from "../Routes/cartRoutes.js";
+import paymentRouter from "../Routes/paymentRoutes.js";
 
 
 const app = express();
@@ -29,6 +31,9 @@ app.use(cookieParser());
 app.use("/api/v1/user",userRouter);
 app.use("/api/v1/managers",managerRouter);
 app.use("/api/v1/turfs",turfRouter);
+app.use("/api/v1/carts",cartRouter);
+app.use("/api/v1/payment", paymentRouter);
+
 
 const port = 3001;
 connectDB();

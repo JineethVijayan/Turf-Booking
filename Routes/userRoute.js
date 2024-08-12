@@ -1,7 +1,8 @@
-import { signUp, signin } from "../controllers/userController.js";
+import { findCurrentUser, getAllUsers, signUp, signin } from "../controllers/userController.js";
 import authenticateUser from "../middlewares/userMiddleware.js";
 import express from "express";
 import User from "../models/userModel.js";
+import authenticateAdmin from "../middlewares/adminMiddleware.js";
 
 const userRouter = express.Router();
 
@@ -25,5 +26,9 @@ userRouter.get("/", (req, res) => {
 userRouter.post("/signup", signUp);
 
 userRouter.post("/signin", signin);
+
+userRouter.get("/get-users",authenticateAdmin,getAllUsers);
+
+userRouter.get("/get-current-user",findCurrentUser)
 
 export default userRouter;

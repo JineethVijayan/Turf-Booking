@@ -1,8 +1,8 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import { userToken } from "../utils/generateToken.js";
-
-
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 export const signUp = async (req, res) => {
 
@@ -25,7 +25,8 @@ export const signUp = async (req, res) => {
             firstName,
             lastName,
             email,
-            hashPassword
+            hashPassword,
+            role: 'user'
         });
 
         const newUserCreated = await newUser.save();
@@ -55,20 +56,22 @@ export const signin = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.send('Invalid email Id')
+            return res.status(401).send('Invalid email Id')
         }
 
         const matchPassword = await bcrypt.compare(password, user.hashPassword);
 
         if (!matchPassword) {
-            return res.send("Invalid password");
+            return res.status(401).send("Invalid password");
         }
+
+        const role = user.role;
 
         const token = userToken(email);
 
         res.cookie("token", token);
-        res.send("Login successfull");
-
+        // res.send("Login successfull");
+        res.json({ message: "loged in", role, token });
     } catch (error) {
         console.log(error, "somwthing went wrong");
         res.status(500).send("Internal Error")
@@ -76,3 +79,31 @@ export const signin = async (req, res) => {
 
 }
 
+
+export const getAllUsers = async (req, res) => {
+    const users = await User.find();
+    return res.send(users);
+}
+
+
+
+export const findCurrentUser = async (req, res) => {
+
+    const token = req.cookies.token;
+
+    //console.log(token);
+    try {
+
+        const decoded = jwt.verify(token, process.env.secretKey);
+        //console.log(decoded);
+        const user = await User.findOne({ email: decoded.data })
+        //console.log(user);
+        if (!user) {
+            return res.send("no user found");
+        } else {
+            return res.send(user);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

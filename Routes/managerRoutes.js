@@ -1,8 +1,9 @@
 import express from "express";
 import Manager from "../models/managerModel.js";
-import { signup, signin, getAllManagers, removeManager } from "../controllers/managerController.js";
+import { signup, signin, getAllManagers, removeManager, findManagerById } from "../controllers/managerController.js";
 import authenticateManager from "../middlewares/managerMiddleware.js";
 import authenticateAdmin from "../middlewares/adminMiddleware.js";
+import { findCurrentManager } from "../controllers/managerController.js";
 
 
 const managerRouter = express.Router();
@@ -27,6 +28,8 @@ managerRouter.post("/signup", signup);
 managerRouter.post("/signin", signin);
 managerRouter.get("/get-managers",authenticateAdmin, getAllManagers);
 managerRouter.delete("/remove-managers/:id",authenticateAdmin, removeManager)
+managerRouter.get("/get-manager/:id",findManagerById);
+managerRouter.get("/get-current-manager",findCurrentManager);
 
 
 export default managerRouter;

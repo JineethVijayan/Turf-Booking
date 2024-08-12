@@ -1,7 +1,8 @@
 import Manager from "../models/managerModel.js";
 import { adminToken } from "../utils/generateToken.js";
 import bcrypt from "bcrypt";
-
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 export const signup = async (req, res) => {
 
@@ -51,18 +52,18 @@ export const signin = async (req, res) => {
         const manager = await Manager.findOne({ email });
 
         if (!manager) {
-            res.send("invalid email id");
+            return res.status(401).send("invalid email id");
         }
 
         const matchpassword = await bcrypt.compare(password, manager.hashPassword);
 
         if (!matchpassword) {
-            res.send("invalid password");
+            return res.status(401).send("invalid password");
         }
         const role = manager.role;
         const token = adminToken(manager);
         res.cookie("token", token);
-        res.json({ message: "loged in",role, token });
+        res.json({ message: "loged in", manager, role, token });
 
     } catch (error) {
         console.log(error, "something went wrong");
@@ -92,4 +93,38 @@ export const removeManager = async (req, res) => {
     }
 
     return res.send("removed successfully")
+}
+
+export const findManagerById = async (req, res) => {
+
+    const id = req.params.id;
+
+    const manager = await Manager.findOne({ _id: id });
+
+    if (manager) {
+        return res.send(manager);
+    } else {
+        return res.send("manager is not exist")
+    }
+}
+
+export const findCurrentManager = async (req, res) => {
+
+    const token = req.cookies.token;
+
+    // console.log(token);
+    try {
+
+        const decoded = jwt.verify(token, process.env.secretKey);
+      
+        const manager = await Manager.findOne({ _id: decoded.data })
+        // console.log(manager);
+        if (!manager) {
+            return res.send("no manager found");
+        } else {
+            return res.send(manager);
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }

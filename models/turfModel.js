@@ -5,9 +5,13 @@ const turfSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        minLength: 5,
+        minLength: 2,
         maxLength: 30,
         unique: true
+    },
+    category: {
+        type: [String],
+        required: true,
     },
     description: {
         type: String,

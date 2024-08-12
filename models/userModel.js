@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         maxLength: 30
 
     },
+    role:{
+        type:String,
+        enum:["user","manager","admin"]
+    },
     hashPassword: {
         type: String,
         required: true,
