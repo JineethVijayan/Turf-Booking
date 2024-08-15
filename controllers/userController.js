@@ -107,3 +107,31 @@ export const findCurrentUser = async (req, res) => {
         console.log(error);
     }
 }
+
+
+export const logout = async (req, res) => {
+    try {
+        // Clear the JWT token cookie
+        res.clearCookie("token");
+        
+        // Optionally, you can also blacklist the token (not covered here)
+        
+        res.json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.log(error, "Something went wrong");
+        res.status(500).send("Internal Error");
+    }
+};
+
+
+export const deleteUser = async (req, res) => {
+    const id = req.params.id;
+
+    const deleteId = await User.deleteOne({ _id: id });
+
+    if (!deleteId) {
+        return res.send("not deleted");
+    }
+    return res.send("User deleted");
+};
+

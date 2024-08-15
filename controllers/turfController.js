@@ -90,7 +90,9 @@ export const createTurf = async (req, res) => {
             if (!newTurfCreated) {
                 return res.send("turf is not created");
             }
-            return res.send(newTurfCreated);
+            return res.json({message:'created',newTurfCreated})
+
+            //res.send(newTurfCreated);
 
         });
     } catch (error) {

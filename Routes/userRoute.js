@@ -1,4 +1,4 @@
-import { findCurrentUser, getAllUsers, signUp, signin } from "../controllers/userController.js";
+import { deleteUser, findCurrentUser, getAllUsers, logout, signUp, signin } from "../controllers/userController.js";
 import authenticateUser from "../middlewares/userMiddleware.js";
 import express from "express";
 import User from "../models/userModel.js";
@@ -29,6 +29,10 @@ userRouter.post("/signin", signin);
 
 userRouter.get("/get-users",authenticateAdmin,getAllUsers);
 
-userRouter.get("/get-current-user",findCurrentUser)
+userRouter.get("/get-current-user",findCurrentUser);
+
+userRouter.post("/logout",logout);
+
+userRouter.delete("/delete-users/:id",authenticateAdmin,deleteUser);
 
 export default userRouter;

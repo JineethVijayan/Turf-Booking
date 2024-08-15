@@ -1,6 +1,6 @@
 import express from "express";
 import Manager from "../models/managerModel.js";
-import { signup, signin, getAllManagers, removeManager, findManagerById } from "../controllers/managerController.js";
+import { signup, signin, getAllManagers, removeManager, findManagerById, updateManager, deleteManager, logout } from "../controllers/managerController.js";
 import authenticateManager from "../middlewares/managerMiddleware.js";
 import authenticateAdmin from "../middlewares/adminMiddleware.js";
 import { findCurrentManager } from "../controllers/managerController.js";
@@ -30,6 +30,10 @@ managerRouter.get("/get-managers",authenticateAdmin, getAllManagers);
 managerRouter.delete("/remove-managers/:id",authenticateAdmin, removeManager)
 managerRouter.get("/get-manager/:id",findManagerById);
 managerRouter.get("/get-current-manager",findCurrentManager);
+managerRouter.put('/update-managers/:id',updateManager);
+managerRouter.delete('/delete-managers/:id',authenticateAdmin,deleteManager);
+managerRouter.post('/logout',logout);
+
 
 
 export default managerRouter;

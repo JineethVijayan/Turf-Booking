@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import turfRouter from "../Routes/turfRoutes.js";
 import cartRouter from "../Routes/cartRoutes.js";
 import paymentRouter from "../Routes/paymentRoutes.js";
+import bookingRouter from "../Routes/bookingRoutes.js";
 
 
 const app = express();
@@ -33,7 +34,7 @@ app.use("/api/v1/managers",managerRouter);
 app.use("/api/v1/turfs",turfRouter);
 app.use("/api/v1/carts",cartRouter);
 app.use("/api/v1/payment", paymentRouter);
-
+app.use("/api/v1/booking",bookingRouter);
 
 const port = 3001;
 connectDB();

@@ -128,3 +128,55 @@ export const findCurrentManager = async (req, res) => {
         console.log(error);
     }
 }
+
+
+export const updateManager = async (req, res) => {
+
+    const id = req.params.id;
+  //  console.log(id);
+
+    const { email, name, role } = req.body;
+
+
+
+    const updatedManager = await Manager.findOneAndUpdate(
+        { _id: id },
+        { email, name, role },
+        {
+            new: true,
+        }
+    );
+
+    if (!updatedManager) {
+        return res.send("Manager is not updated");
+    }
+
+   // console.log(updatedManager);
+    return res.send(updatedManager);
+};
+
+
+export const deleteManager = async (req, res) => {
+    const id = req.params.id;
+
+    const deleteId = await Manager.deleteOne({ _id: id });
+
+    if (!deleteId) {
+        return res.send("not deleted");
+    }
+    return res.send("manager deleted");
+};
+
+export const logout = async (req, res) => {
+    try {
+        // Clear the JWT token cookie
+        res.clearCookie("token");
+        
+        // Optionally, you can also blacklist the token (not covered here)
+        
+        res.json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.log(error, "Something went wrong");
+        res.status(500).send("Internal Error");
+    }
+};
