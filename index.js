@@ -1,13 +1,13 @@
 import express from "express";
 import cors from "cors";
-import connectDB from "../config/database.js";
-import userRouter from "../Routes/userRoute.js";
-import managerRouter from "../Routes/managerRoutes.js";
+import connectDB from "./config/database.js";
+import userRouter from "./Routes/userRoute.js";
+import managerRouter from "./Routes/managerRoutes.js";
 import cookieParser from "cookie-parser";
-import turfRouter from "../Routes/turfRoutes.js";
-import cartRouter from "../Routes/cartRoutes.js";
-import paymentRouter from "../Routes/paymentRoutes.js";
-import bookingRouter from "../Routes/bookingRoutes.js";
+import turfRouter from "./Routes/turfRoutes.js";
+import cartRouter from "./Routes/cartRoutes.js";
+import paymentRouter from "./Routes/paymentRoutes.js";
+import bookingRouter from "./Routes/bookingRoutes.js";
 
 
 const app = express();
