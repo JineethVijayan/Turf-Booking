@@ -62,6 +62,8 @@ export const signin = async (req, res) => {
         }
         const role = manager.role;
         const token = adminToken(manager);
+        console.log(token);
+        
         res.cookie("token", token);
         res.json({ message: "loged in", manager, role, token });
 
@@ -112,7 +114,7 @@ export const findCurrentManager = async (req, res) => {
 
     const token = req.cookies.token;
 
-    // console.log(token);
+     console.log(token);
     try {
 
         const decoded = jwt.verify(token, process.env.secretKey);

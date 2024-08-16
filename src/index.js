@@ -12,9 +12,15 @@ import bookingRouter from "../Routes/bookingRoutes.js";
 
 const app = express();
 
-let whitelist = ['http://localhost:5173', 'https://turf-booking-fe.vercel.app']
+let whitelist = ['http://localhost:5173', 'https://turf-booking-fe.vercel.app','https://visionary-pithivier-c15f61.netlify.app']
 let corsOptions = {
   origin: function (origin, callback) {
+
+    if (!origin) {
+      return callback(null, true);
+    }
+
+
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
