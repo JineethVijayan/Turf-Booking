@@ -91,12 +91,12 @@ export const findCurrentUser = async (req, res) => {
 
     const token = req.cookies.token;
 
-    //console.log(token);
+    console.log(token);
     try {
 
         const decoded = jwt.verify(token, process.env.secretKey);
-        //console.log(decoded);
-        const user = await User.findOne({ email: decoded.data })
+        console.log(decoded);
+        const user = await User.findOne({ email: decoded.data }).select("-hashPassword")
         //console.log(user);
         if (!user) {
             return res.send("no user found");
