@@ -12,7 +12,7 @@ import bookingRouter from "./Routes/bookingRoutes.js";
 
 const app = express();
 
-let whitelist = ['http://localhost:5173', 'https://turf-booking-fe.vercel.app','https://visionary-pithivier-c15f61.netlify.app']
+let whitelist = [ 'https://turf-booking-fe.vercel.app','https://visionary-pithivier-c15f61.netlify.app']
 let corsOptions = {
   origin: function (origin, callback) {
 
@@ -30,7 +30,7 @@ let corsOptions = {
   credentials:true 
 }
  
-app.use(cors({origin:whitelist,credentials:true}));
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(cookieParser());
 
