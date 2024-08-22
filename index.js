@@ -12,7 +12,7 @@ import bookingRouter from "./Routes/bookingRoutes.js";
 
 const app = express();
 
-let whitelist = [ 'https://turf-booking-fe.vercel.app','https://visionary-pithivier-c15f61.netlify.app']
+let whitelist = 'https://turf-booking-fe.vercel.app'
 let corsOptions = {
   origin: function (origin, callback) {
 

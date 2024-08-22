@@ -11,6 +11,8 @@ export const getAllTurfs = async (req, res) => {
 
 export const getLimitedTurfs = async (req, res) => {
     const limit = parseInt(req.query.limit) || 6;
+    console.log(limit);
+    
     const turfs = await Turf.find().limit(limit);
     res.send(turfs).status(200);
 }
