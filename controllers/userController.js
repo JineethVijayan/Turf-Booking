@@ -37,7 +37,17 @@ export const signUp = async (req, res) => {
 
         const token = userToken(email);
 
-        res.cookie("token", token);
+        const isProduction = process.env.NODE_ENV === "production";
+        console.log(isProduction,'====idProduction');
+        
+        res.cookie("token", token, {
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+            httpOnly: true,
+            secure: isProduction, // Secure only in production
+            sameSite: isProduction ? "None" : "Lax", // 'None' for production, 'Lax' for development
+        });
+
+   
         res.send("signed up successfully")
 
     } catch (error) {
@@ -69,7 +79,16 @@ export const signin = async (req, res) => {
 
         const token = userToken(email);
 
-        res.cookie("token", token);
+        const isProduction = process.env.NODE_ENV === "production";
+        console.log(isProduction,'====idProduction');
+        
+        res.cookie("token", token, {
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+            httpOnly: true,
+            secure: isProduction, // Secure only in production
+            sameSite: isProduction ? "None" : "Lax", // 'None' for production, 'Lax' for development
+        });
+        
         // res.send("Login successfull");
         res.json({ message: "loged in", role, token });
     } catch (error) {

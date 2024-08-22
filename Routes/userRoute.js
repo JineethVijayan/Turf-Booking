@@ -29,7 +29,7 @@ userRouter.post("/signin", signin);
 
 userRouter.get("/get-users",authenticateAdmin,getAllUsers);
 
-userRouter.get("/get-current-user",findCurrentUser);
+userRouter.get("/get-current-user",authenticateUser,findCurrentUser);
 
 userRouter.post("/logout",logout);
 
