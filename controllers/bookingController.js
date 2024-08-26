@@ -57,3 +57,14 @@ export const findBookingsByTurfIds = async (req, res) => {
 
 
 }
+
+export const deleteBooking = async (req, res) => {
+    const id = req.params.id;
+
+    const deleteId = await Booking.deleteOne({ _id: id });
+
+    if (!deleteId) {
+        return res.send("not deleted");
+    }
+    return res.send("booking deleted");
+};

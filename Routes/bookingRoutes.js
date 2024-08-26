@@ -1,5 +1,5 @@
 import express from "express";
-import { createBookings, findBookingsByTurfIds } from "../controllers/bookingController.js";
+import { createBookings, deleteBooking, findBookingsByTurfIds } from "../controllers/bookingController.js";
 import authenticateUser from "../middlewares/userMiddleware.js";
 import authenticateManager from "../middlewares/managerMiddleware.js";
 
@@ -12,5 +12,6 @@ bookingRouter.post("/create-booking",authenticateUser,createBookings)
 
 bookingRouter.post("/get-bookings",authenticateManager,findBookingsByTurfIds);
 
+bookingRouter.delete("/delete-booking/:id",authenticateManager,deleteBooking);
 
 export default bookingRouter;
