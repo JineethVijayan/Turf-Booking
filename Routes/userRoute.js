@@ -31,7 +31,7 @@ userRouter.get("/get-users",authenticateAdmin,getAllUsers);
 
 userRouter.get("/get-current-user",authenticateUser,findCurrentUser);
 
-userRouter.post("/logout",logout);
+userRouter.post("/logout",authenticateUser,logout);
 
 userRouter.delete("/delete-users/:id",authenticateAdmin,deleteUser);
 

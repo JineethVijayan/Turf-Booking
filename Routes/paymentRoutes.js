@@ -4,13 +4,14 @@ import dotenv from "dotenv";
 import crypto from "crypto";
 import razorpayInstance from "../config/payment.js";
 import Payment from "../models/paymentModel.js";
+import authenticateUser from "../middlewares/userMiddleware.js";
 
 dotenv.config();
 
 const paymentRouter = express.Router();
 
 
-paymentRouter.post("/order", (req, res) => {
+paymentRouter.post("/order",authenticateUser, (req, res) => {
   const { amount } = req.body;
 
   try {
@@ -34,7 +35,7 @@ paymentRouter.post("/order", (req, res) => {
   }
 });
 
-paymentRouter.post("/verify", async (req, res) => {
+paymentRouter.post("/verify",authenticateUser, async (req, res) => {
   console.log("very hitted");
 
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =

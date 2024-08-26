@@ -7,9 +7,9 @@ import authenticateManager from "../middlewares/managerMiddleware.js";
 const turfRouter = express.Router();
 
 turfRouter.get("/get-turfs",getAllTurfs);
-turfRouter.post("/add-turfs",upload.single("image"),createTurf);
-turfRouter.put("/update-turfs/:id", updateTurf);
-turfRouter.delete("/delete-turfs/:id",deleteTurf);
+turfRouter.post("/add-turfs",authenticateManager,upload.single("image"),createTurf);
+turfRouter.put("/update-turfs/:id",authenticateManager ,updateTurf);
+turfRouter.delete("/delete-turfs/:id",authenticateManager,deleteTurf);
 turfRouter.post("/get-turfsByIds",findTurfByIds);
 turfRouter.get("/get-limited-turf",getLimitedTurfs);
 turfRouter.get('/get-turf/category/:category',TurfbyCategory);

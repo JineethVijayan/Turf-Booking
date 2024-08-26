@@ -29,10 +29,10 @@ managerRouter.post("/signin", signin);
 managerRouter.get("/get-managers",authenticateAdmin, getAllManagers);
 managerRouter.delete("/remove-managers/:id",authenticateAdmin, removeManager)
 managerRouter.get("/get-manager/:id",findManagerById);
-managerRouter.get("/get-current-manager",findCurrentManager);
-managerRouter.put('/update-managers/:id',updateManager);
+managerRouter.get("/get-current-manager",authenticateManager,findCurrentManager);
+managerRouter.put('/update-managers/:id',authenticateAdmin,updateManager);
 managerRouter.delete('/delete-managers/:id',authenticateAdmin,deleteManager);
-managerRouter.post('/logout',logout);
+managerRouter.post('/logout',authenticateManager,logout);
 
 
 
