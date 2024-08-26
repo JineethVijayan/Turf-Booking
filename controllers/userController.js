@@ -88,7 +88,7 @@ export const signin = async (req, res) => {
             secure: isProduction, // Secure only in production
             sameSite: isProduction ? "None" : "Lax", // 'None' for production, 'Lax' for development
         });
-        
+
         // res.send("Login successfull");
         res.json({ message: "loged in", role, token });
     } catch (error) {
@@ -130,10 +130,8 @@ export const findCurrentUser = async (req, res) => {
 
 export const logout = async (req, res) => {
     try {
-        // Clear the JWT token cookie
+     
         res.clearCookie("token");
-        
-        // Optionally, you can also blacklist the token (not covered here)
         
         res.json({ message: "Logged out successfully" });
     } catch (error) {
