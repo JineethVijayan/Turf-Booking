@@ -12,24 +12,21 @@ import bookingRouter from "./Routes/bookingRoutes.js";
 
 const app = express();
 
-let whitelist = 'https://turf-booking-fe.vercel.app'
+let whitelist = ['https://turf-booking-fe.vercel.app'];
 let corsOptions = {
   origin: function (origin, callback) {
-
-    if (!origin) {
-      return callback(null, true);
-    }
-
-
     if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials:true 
-}
-app.use(cors({origin:whitelist,credentials:true}));
+  credentials: true,
+};
+
+app.use(cors(corsOptions)); 
+
+//app.use(cors({origin:whitelist,credentials:true}));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
